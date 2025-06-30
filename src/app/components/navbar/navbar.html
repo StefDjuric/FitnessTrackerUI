@@ -1,0 +1,42 @@
+<div
+  class="mx-auto max-w-[1440px] px-6 lg:px-15 3xl:px-0 relative py-5 z-30 flex justify-between items-center"
+>
+  <!-- Logo -->
+  <a routerLink="/" class="font-bold text-4xl text-[#dda15e]">TrainALot</a>
+
+  <!-- Nav links -->
+  <ul class="hidden lg:flex lg:justify-center lg:items-center w-full gap-8">
+    <!-- Public Nav links -->
+    @for (link of PUBLIC_NAV_LINKS; track $index) {
+    <li
+      class="text-xl 3xl:text-2xl hover:cursor-pointer text-[#dda15e] hover:text-[#bc6c25]"
+      [routerLink]="link.href"
+      routerLinkActive="router-link-active"
+    >
+      {{ link.text }}
+    </li>
+    }
+  </ul>
+  <!-- End of Public Nav links -->
+
+  <!-- Log in and sign up buttons -->
+  <div class="hidden lg:flex lg:justify-between lg:items-center gap-4">
+    <app-button
+      text="Log In"
+      type="button"
+      styling="primary"
+      [routerLink]="['login']"
+      routerLinkActive="router-link-active"
+    ></app-button>
+    <app-button
+      text="Sign Up"
+      type="button"
+      styling="secondary"
+      [routerLink]="['/signup']"
+      routerLinkActive="router-link-active"
+    ></app-button>
+  </div>
+  <!-- End of Log in and sign up buttons -->
+
+  <app-burger-menu></app-burger-menu>
+</div>

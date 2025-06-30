@@ -1,0 +1,23 @@
+<div class="min-w-[100px] flex items-center justify-center">
+  @if (this.styling === 'primary') {
+  <button
+    class="px-4 py-2 w-full rounded-lg flex justify-center gap-2 items-center text-center hover:cursor-pointer bg-[#dda15e] hover:bg-[#bc6c25]"
+    [disabled]="disabled"
+    [type]="type"
+    (click)="OnClick($event)"
+  >
+    <img *ngIf="iconSrc" [src]="iconSrc" [alt]="text" width="24" height="24" />
+    <p class="text-lg text-white">{{ text }}</p>
+  </button>
+  } @else if(this.styling === 'secondary'){
+  <button
+    class="px-4 py-2 w-full flex justify-center items-center gap-2 text-center rounded-lg hover:cursor-pointer bg-[#606c38] hover:bg-[#283618]"
+    [disabled]="disabled"
+    [type]="type"
+    (click)="OnClick($event)"
+  >
+    <img *ngIf="iconSrc" [src]="iconSrc" [alt]="text" width="24" height="24" />
+    <p class="text-lg text-white">{{ text }}</p>
+  </button>
+  }
+</div>
