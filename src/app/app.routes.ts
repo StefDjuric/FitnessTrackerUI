@@ -13,15 +13,16 @@ export const routes: Routes = [
   // Private routes
   {
     path: '',
+    component: Home,
+  },
+  {
+    path: '',
     runGuardsAndResolvers: 'always',
     canActivate: [authGuard],
     children: [{ path: 'dashboard', component: Dashboard }],
   },
   // Public routes
-  {
-    path: '',
-    component: Home,
-  },
+  { path: 'home', component: Home },
   {
     path: 'login',
     component: Login,
@@ -30,7 +31,7 @@ export const routes: Routes = [
     path: 'signup',
     component: Register,
   },
-  { path: '**', redirectTo: '/home', pathMatch: 'full' },
+  { path: '**', redirectTo: 'home', pathMatch: 'full' },
   { path: 'contact', component: Contact },
   { path: 'about', component: About },
   { path: 'not-found', component: NotFound },

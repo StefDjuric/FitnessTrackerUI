@@ -54,6 +54,6 @@ export class Account {
     localStorage.removeItem('user');
     this.currentUser.set(null);
     this.toastr.success('Successfully logged out.');
-    this.router.navigateByUrl('/home');
+    this.router.navigateByUrl('/');
   }
 }

@@ -48,9 +48,9 @@
             class="text-lg 3xl:text-xl text-[#dda15e] hover:text-[#bc6c25]"
             >{{ link.text }}</a
           >
-          } @if(accountService.currentUser()){
+          } } @if(accountService.currentUser()){
           <!-- Log out button -->
-          <li class="mt-10">
+          <li class="mt-10 flex flex-col lg:hidden items-center justify-center">
             <app-button
               text="Log out"
               type="button"
@@ -80,7 +80,7 @@
             ></app-button>
           </li>
           <!-- End of Log in and sign up buttons -->
-          } }
+          }
         </ul>
       </div>
       <!-- End of Nav Links -->
