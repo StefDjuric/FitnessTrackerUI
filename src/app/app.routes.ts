@@ -1,9 +1,23 @@
 import { Routes } from '@angular/router';
 import { Home } from './components/home/home';
 import { Login } from './components/login/login';
-import { Signup } from './components/signup/signup';
+import { Contact } from './components/contact/contact';
+import { About } from './components/about/about';
+import { NotFound } from './components/not-found/not-found';
+import { ServerError } from './components/server-error/server-error';
+import { Register } from './components/register/register';
+import { authGuard } from './guards/auth-guard';
+import { Dashboard } from './components/dashboard/dashboard';
 
 export const routes: Routes = [
+  // Private routes
+  {
+    path: '',
+    runGuardsAndResolvers: 'always',
+    canActivate: [authGuard],
+    children: [{ path: 'dashboard', component: Dashboard }],
+  },
+  // Public routes
   {
     path: '',
     component: Home,
@@ -14,7 +28,11 @@ export const routes: Routes = [
   },
   {
     path: 'signup',
-    component: Signup,
+    component: Register,
   },
   { path: '**', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'contact', component: Contact },
+  { path: 'about', component: About },
+  { path: 'not-found', component: NotFound },
+  { path: 'server-error', component: ServerError },
 ];

@@ -1,0 +1,186 @@
+<!-- Container -->
+<div
+  class="mx-auto max-w-[1440px] px-6 lg:px-15 3xl:px-0 flex justify-center items-center min-h-screen"
+>
+  <!-- Sign Up Card -->
+  <div
+    class="flex flex-col justify-center items-center p-8 shadow-2xl rounded-lg min-w-[400px]"
+  >
+    <h1 class="text-3xl text-center text-[#606c38] font-bold">Sign Up</h1>
+    <!-- Form inputs -->
+    <form
+      [formGroup]="registerForm"
+      (ngSubmit)="register()"
+      autocomplete="off"
+      novalidate
+      class="flex flex-col justify-center items-center mt-4 gap-4"
+    >
+      <!-- Errors -->
+      @if (validationErrors) {
+      <div class="p-4 bg-red-400 text-white">
+        <ul>
+          @for (error of validationErrors; track $index) {
+          <li>{{ error }}</li>
+          }
+        </ul>
+      </div>
+      }
+
+      <!-- Email Input -->
+      <div class="flex flex-col gap-2">
+        <label for="signup-email" class="text-lg">Email</label>
+        <input
+          formControlName="email"
+          type="email"
+          id="signup-email"
+          [ngClass]="
+            registerForm.get('email')?.errors &&
+            registerForm.get('email')?.touched
+              ? 'border-2 border-red-500 outline-red-500 rounded-lg px-2 py-1 w-[300px]'
+              : 'px-2 py-1 rounded-lg border-2 border-[#606c38] w-[300px]'
+          "
+        />
+        <p
+          [ngClass]="
+            registerForm.get('email')?.errors &&
+            registerForm.get('email')?.touched
+              ? 'text-red-500 text-sm'
+              : 'hidden'
+          "
+        >
+          Email must be valid.
+        </p>
+      </div>
+      <!-- End of Email Input -->
+
+      <!-- Username Input -->
+      <div class="flex flex-col gap-2">
+        <label for="signup-username" class="text-lg">Username</label>
+        <input
+          formControlName="username"
+          type="text"
+          id="signup-username"
+          [ngClass]="
+            registerForm.get('username')?.errors &&
+            registerForm.get('username')?.touched
+              ? 'border-2 border-red-500 outline-red-500 rounded-lg px-2 py-1 w-[300px]'
+              : 'px-2 py-1 rounded-lg border-2 border-[#606c38] w-[300px]'
+          "
+        />
+        <p
+          [ngClass]="
+            registerForm.get('username')?.errors &&
+            registerForm.get('username')?.touched
+              ? 'text-red-500 text-sm'
+              : 'hidden'
+          "
+        >
+          Username must be at least 4 characters.
+        </p>
+      </div>
+      <!-- End of Username Input -->
+
+      <!-- Full name Input -->
+      <div class="flex flex-col gap-2">
+        <label for="signup-fullName" class="text-lg">Full name</label>
+        <input
+          formControlName="fullName"
+          type="text"
+          id="signup-fullName"
+          [ngClass]="
+            registerForm.get('fullName')?.errors &&
+            registerForm.get('fullName')?.touched
+              ? 'border-2 border-red-500 outline-red-500 rounded-lg px-2 py-1 w-[300px]'
+              : 'px-2 py-1 rounded-lg border-2 border-[#606c38] w-[300px]'
+          "
+        />
+        <p
+          [ngClass]="
+            registerForm.get('fullName')?.errors &&
+            registerForm.get('fullName')?.touched
+              ? 'text-red-500 text-sm'
+              : 'hidden'
+          "
+        >
+          Full name must be at least 4 characters.
+        </p>
+      </div>
+      <!-- End of Full name Input -->
+
+      <!-- Password Input -->
+      <div class="flex flex-col gap-2">
+        <label for="signup-password" class="text-lg">Password</label>
+        <input
+          formControlName="password"
+          type="password"
+          id="signup-password"
+          [ngClass]="
+            registerForm.get('password')?.errors &&
+            registerForm.get('password')?.touched
+              ? 'border-2 border-red-500 outline-red-500 rounded-lg px-2 py-1 w-[300px]'
+              : 'px-2 py-1 rounded-lg border-2 border-[#606c38] w-[300px]'
+          "
+        />
+        <p
+          [ngClass]="
+            registerForm.get('password')?.errors &&
+            registerForm.get('password')?.touched
+              ? 'text-red-500 text-sm'
+              : 'hidden'
+          "
+        >
+          Password must be at least 8 characters
+        </p>
+      </div>
+      <!-- End of Password Input -->
+
+      <!-- Confirm Password Input -->
+      <div class="flex flex-col gap-2">
+        <label for="confirm-signup-password" class="text-lg"
+          >Confirm password</label
+        >
+        <input
+          formControlName="confirmPassword"
+          type="password"
+          id="confirm-signup-password"
+          [ngClass]="
+            registerForm.get('confirmPassword')?.errors &&
+            registerForm.get('confirmPassword')?.touched
+              ? 'border-2 border-red-500 outline-red-500 rounded-lg px-2 py-1 w-[300px]'
+              : 'px-2 py-1 rounded-lg border-2 border-[#606c38] w-[300px]'
+          "
+        />
+        <p
+          [ngClass]="
+            registerForm.get('confirmPassword')?.errors &&
+            registerForm.get('confirmPassword')?.touched
+              ? 'text-red-500 text-sm'
+              : 'hidden'
+          "
+        >
+          Passwords have to match
+        </p>
+      </div>
+      <!-- End of Confirm Password Input -->
+
+      <app-button
+        type="submit"
+        text="Sign Up"
+        [disabled]="!registerForm.valid"
+        styling="secondary"
+      ></app-button>
+    </form>
+    <!-- End of Form inputs -->
+
+    <p class="text-md mt-5">
+      Already have an account?<a
+        [routerLink]="['/login']"
+        routerLinkActive="router-link-active"
+        class="text-blue-500"
+      >
+        Log In.</a
+      >
+    </p>
+  </div>
+  <!-- End of Sign Up Card -->
+</div>

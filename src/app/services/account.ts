@@ -4,6 +4,8 @@ import { environment } from '../../environments/environment';
 import { User } from '../../models/User';
 import { map, Observable } from 'rxjs';
 import { RegisterDto } from '../../models/RegisterDto';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +13,8 @@ import { RegisterDto } from '../../models/RegisterDto';
 export class Account {
   private http = inject(HttpClient);
   private baseUrl = environment.baseUrl;
+  private toastr = inject(ToastrService);
+  private router = inject(Router);
   currentUser = signal<User | null>(null);
 
   login(model: {
@@ -49,5 +53,7 @@ export class Account {
   logout() {
     localStorage.removeItem('user');
     this.currentUser.set(null);
+    this.toastr.success('Successfully logged out.');
+    this.router.navigateByUrl('/home');
   }
 }

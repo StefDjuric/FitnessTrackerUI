@@ -1,1 +1,114 @@
-<p>login works!</p>
+<!-- Container for Login -->
+<div
+  class="mx-auto max-w-[1440px] px-6 lg:px-15 3xl:px-0 flex justify-center items-center min-h-screen"
+>
+  <!-- Login Card -->
+  <div
+    class="flex flex-col justify-center items-center gap-5 shadow-2xl p-10 rounded-lg"
+  >
+    <h1 class="text-3xl font-bold text-center text-[#dda15e]">Log In</h1>
+
+    <!-- Login form -->
+    <form
+      [formGroup]="loginForm"
+      (ngSubmit)="login()"
+      class="flex flex-col justify-center items-center gap-4"
+      novalidate
+      autocomplete="off"
+    >
+      <!-- Validation Errors -->
+      @if (validationErrors && validationErrors.length > 0) {
+      <div class="p-4 bg-red-400 text-white">
+        <ul>
+          @for (error of validationErrors; track $index) {
+          <li>{{ error }}</li>
+          }
+        </ul>
+      </div>
+      }
+      <!-- End of Validation Errors -->
+
+      <!-- EmailOrUsername Input -->
+      <div class="flex flex-col gap-2">
+        <label for="emailOrUsername" class="text-lg"> Email or Username</label>
+        <input
+          type="text"
+          formControlName="emailOrUsername"
+          id="emailOrUsername"
+          [ngClass]="
+            loginForm.get('emailOrUsername')?.errors &&
+            loginForm.get('emailOrUsername')?.touched
+              ? 'border-2 border-red-500 outline-red-500 rounded-lg px-2 py-1 w-[300px]'
+              : 'px-2 py-1 rounded-lg border-2 border-[#dda15e] w-[300px]'
+          "
+        />
+        <p
+          [ngClass]="
+            loginForm.get('emailOrUsername')?.errors &&
+            loginForm.get('emailOrUsername')?.touched
+              ? 'text-red-500 text-sm'
+              : 'hidden'
+          "
+        >
+          Email or username must be valid.
+        </p>
+      </div>
+      <!-- End of EmailOrUsername Input -->
+
+      <!-- Password input -->
+      <div class="flex flex-col gap-2">
+        <div class="flex justify-between items-center">
+          <label for="login-password" class="text-lg"> Password </label>
+          <a
+            [routerLink]="['/forgot-password']"
+            routerLinkActive="router-link-active"
+            class="text-blue-500 text-md"
+            >Forgot password?</a
+          >
+        </div>
+        <input
+          type="password"
+          id="login-password"
+          formControlName="password"
+          [ngClass]="
+            loginForm.get('password')?.errors &&
+            loginForm.get('password')?.touched
+              ? 'border-2 border-red-500 outline-red-500 rounded-lg px-2 py-1 w-[300px]'
+              : 'px-2 py-1 rounded-lg border-2 border-[#dda15e] w-[300px]'
+          "
+        />
+        <p
+          [ngClass]="
+            loginForm.get('password')?.errors &&
+            loginForm.get('password')?.touched
+              ? 'text-red-500 text-sm'
+              : 'hidden'
+          "
+        >
+          Password must be valid.
+        </p>
+      </div>
+      <!-- End of Password input -->
+
+      <app-button
+        text="Log in"
+        [disabled]="!loginForm.valid"
+        styling="primary"
+        type="submit"
+      >
+      </app-button>
+    </form>
+    <!-- End of Login form -->
+
+    <p class="text-md">
+      Don't have an account?
+      <a
+        [routerLink]="['/signup']"
+        routerLinkActive="router-link-active"
+        class="text-blue-500"
+        >Sign Up.</a
+      >
+    </p>
+  </div>
+  <!-- End of Login Card -->
+</div>

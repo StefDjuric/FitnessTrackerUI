@@ -29,15 +29,58 @@
             class="fixed top-6 right-6 hover:cursor-pointer"
             (click)="closeMenu()"
           />
-          <!-- Public Nav links -->
-          @for (link of PUBLIC_NAV_LINKS; track $index) {
+          <!-- Private Nav links -->
+          @if(accountService.currentUser()){ @for (link of PRIVATE_NAV_LINKS;
+          track $index) {
           <a
             [routerLink]="link.href"
             routerLinkActive="router-link-active"
             class="text-lg 3xl:text-xl text-[#dda15e] hover:text-[#bc6c25]"
             >{{ link.text }}</a
           >
-          }
+
+          } }
+          <!-- Public Nav links -->
+          @else{ @for (link of PUBLIC_NAV_LINKS; track $index) {
+          <a
+            [routerLink]="link.href"
+            routerLinkActive="router-link-active"
+            class="text-lg 3xl:text-xl text-[#dda15e] hover:text-[#bc6c25]"
+            >{{ link.text }}</a
+          >
+          } @if(accountService.currentUser()){
+          <!-- Log out button -->
+          <li class="mt-10">
+            <app-button
+              text="Log out"
+              type="button"
+              styling="primary"
+              (clicked)="accountService.logout()"
+            ></app-button>
+          </li>
+
+          }@else {
+          <!-- Log in and sign up buttons -->
+          <li
+            class="flex flex-col lg:hidden justify-between items-center gap-4"
+          >
+            <app-button
+              text="Log In"
+              type="button"
+              styling="primary"
+              [routerLink]="['login']"
+              routerLinkActive="router-link-active"
+            ></app-button>
+            <app-button
+              text="Sign Up"
+              type="button"
+              styling="secondary"
+              [routerLink]="['/signup']"
+              routerLinkActive="router-link-active"
+            ></app-button>
+          </li>
+          <!-- End of Log in and sign up buttons -->
+          } }
         </ul>
       </div>
       <!-- End of Nav Links -->

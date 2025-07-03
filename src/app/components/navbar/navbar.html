@@ -6,8 +6,21 @@
 
   <!-- Nav links -->
   <ul class="hidden lg:flex lg:justify-center lg:items-center w-full gap-8">
+    <!-- Private Nav links -->
+    @if (this.accountService.currentUser()) { @for (link of PRIVATE_NAV_LINKS;
+    track $index) {
+    <li
+      class="text-xl 3xl:text-2xl hover:cursor-pointer text-[#dda15e] hover:text-[#bc6c25]"
+      [routerLink]="link.href"
+      routerLinkActive="router-link-active"
+    >
+      {{ link.text }}
+    </li>
+    } }
+    <!-- End of Private Nav links -->
+
     <!-- Public Nav links -->
-    @for (link of PUBLIC_NAV_LINKS; track $index) {
+    @else { @for (link of PUBLIC_NAV_LINKS; track $index) {
     <li
       class="text-xl 3xl:text-2xl hover:cursor-pointer text-[#dda15e] hover:text-[#bc6c25]"
       [routerLink]="link.href"
@@ -16,9 +29,22 @@
       {{ link.text }}
     </li>
     }
+    <!-- End of Public Nav links -->
+    }
   </ul>
-  <!-- End of Public Nav links -->
 
+  @if(accountService.currentUser()){
+  <!-- Log out button -->
+  <div class="hidden lg:flex">
+    <app-button
+      text="Log out"
+      type="button"
+      styling="primary"
+      (clicked)="accountService.logout()"
+    ></app-button>
+  </div>
+
+  } @else {
   <!-- Log in and sign up buttons -->
   <div class="hidden lg:flex lg:justify-between lg:items-center gap-4">
     <app-button
@@ -37,6 +63,7 @@
     ></app-button>
   </div>
   <!-- End of Log in and sign up buttons -->
+  }
 
   <app-burger-menu></app-burger-menu>
 </div>
