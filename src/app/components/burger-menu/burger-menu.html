@@ -35,7 +35,7 @@
           <a
             [routerLink]="link.href"
             routerLinkActive="router-link-active"
-            class="text-lg 3xl:text-xl text-[#dda15e] hover:text-[#bc6c25]"
+            class="text-lg 3xl:text-xl text-[#dda15e] hover:text-[#bc6c25] transition-all duration-300 transform hover:font-bold hover:scale-105"
             >{{ link.text }}</a
           >
 
@@ -45,7 +45,7 @@
           <a
             [routerLink]="link.href"
             routerLinkActive="router-link-active"
-            class="text-lg 3xl:text-xl text-[#dda15e] hover:text-[#bc6c25]"
+            class="text-lg 3xl:text-xl text-[#dda15e] hover:text-[#bc6c25] transition-all duration-300 transform hover:font-bold hover:scale-105"
             >{{ link.text }}</a
           >
           } } @if(accountService.currentUser()){

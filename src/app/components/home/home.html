@@ -1,1 +1,344 @@
-<p>home works!</p>
+<!-- Hero Section -->
+<section
+  class="hero-gradient min-h-screen flex items-center justify-center text-white relative overflow-hidden"
+>
+  <div class="absolute inset-0 bg-black opacity-10"></div>
+
+  <!-- Floating Elements -->
+  <div
+    class="absolute top-20 left-10 w-20 h-20 bg-white bg-opacity-20 rounded-full pulse-animation"
+  ></div>
+  <div
+    class="absolute bottom-32 right-16 w-16 h-16 bg-white bg-opacity-15 rounded-full pulse-animation"
+    style="animation-delay: 1s"
+  ></div>
+
+  <div class="mx-auto max-w-[1440px] px-6 lg:px-15 3xl:px-0 relative z-10">
+    <div class="text-center">
+      <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+        Transform Your
+        <span
+          class="block text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-200"
+        >
+          Fitness Journey
+        </span>
+      </h1>
+      <p
+        class="text-xl md:text-2xl mb-8 text-gray-100 max-w-3xl mx-auto leading-relaxed"
+      >
+        Track workouts, monitor progress, and achieve your fitness goals with
+        our comprehensive training platform designed for serious athletes.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <button
+          [routerLink]="['/signup']"
+          routerLinkActive="router-link-active"
+          class="bg-white text-[#bc6c25] px-8 py-4 rounded-lg font-semibold text-lg hover:bg-gray-100 hover:cursor-pointer transition-all duration-300 transform hover:scale-105 shadow-lg"
+        >
+          Start Training Now
+        </button>
+        <button
+          class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:cursor-pointer hover:bg-white hover:text-[#bc6c25] transition-all duration-300 transform hover:scale-105"
+        >
+          Watch Demo
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div
+    class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
+  >
+    <svg
+      class="w-6 h-6 text-white"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M19 14l-7 7m0 0l-7-7m7 7V3"
+      ></path>
+    </svg>
+  </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-20 bg-white">
+  <div class="mx-auto max-w-[1440px] px-6 lg:px-15 3xl:px-0">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+      <div class="p-8">
+        <div class="stat-counter">10K+</div>
+        <p class="text-gray-600 text-lg font-medium">Active Users</p>
+      </div>
+      <div class="p-8">
+        <div class="stat-counter">500K+</div>
+        <p class="text-gray-600 text-lg font-medium">Workouts Completed</p>
+      </div>
+      <div class="p-8">
+        <div class="stat-counter">98%</div>
+        <p class="text-gray-600 text-lg font-medium">Success Rate</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-20 bg-gray-50">
+  <div class="mx-auto max-w-[1440px] px-6 lg:px-15 3xl:px-0">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+        Everything You Need to
+        <span class="text-[#dda15e]">Excel</span>
+      </h2>
+      <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+        Comprehensive tools and insights to track, analyze, and optimize your
+        fitness performance
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <!-- Feature 1 -->
+      <div class="bg-white p-8 rounded-2xl shadow-lg card-hover">
+        <div class="text-4xl mb-6 feature-icon">📊</div>
+        <h3 class="text-2xl font-bold mb-4 text-gray-900">Progress Tracking</h3>
+        <p class="text-gray-600 leading-relaxed">
+          Monitor your strength gains, endurance improvements, and body
+          composition changes with detailed analytics and visualizations.
+        </p>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="bg-white p-8 rounded-2xl shadow-lg card-hover">
+        <div class="text-4xl mb-6 feature-icon">🏋️</div>
+        <h3 class="text-2xl font-bold mb-4 text-gray-900">Workout Plans</h3>
+        <p class="text-gray-600 leading-relaxed">
+          Access professionally designed workout routines tailored to your
+          goals, experience level, and available equipment.
+        </p>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="bg-white p-8 rounded-2xl shadow-lg card-hover">
+        <div class="text-4xl mb-6 feature-icon">🎯</div>
+        <h3 class="text-2xl font-bold mb-4 text-gray-900">Goal Setting</h3>
+        <p class="text-gray-600 leading-relaxed">
+          Set SMART fitness goals and track your progress with milestone
+          celebrations and achievement badges.
+        </p>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="bg-white p-8 rounded-2xl shadow-lg card-hover">
+        <div class="text-4xl mb-6 feature-icon">📱</div>
+        <h3 class="text-2xl font-bold mb-4 text-gray-900">Mobile Ready</h3>
+        <p class="text-gray-600 leading-relaxed">
+          Log workouts on the go with our responsive design that works
+          seamlessly across all your devices.
+        </p>
+      </div>
+
+      <!-- Feature 5 -->
+      <div class="bg-white p-8 rounded-2xl shadow-lg card-hover">
+        <div class="text-4xl mb-6 feature-icon">🤝</div>
+        <h3 class="text-2xl font-bold mb-4 text-gray-900">Community</h3>
+        <p class="text-gray-600 leading-relaxed">
+          Connect with like-minded fitness enthusiasts, share achievements, and
+          get motivation from the community.
+        </p>
+      </div>
+
+      <!-- Feature 6 -->
+      <div class="bg-white p-8 rounded-2xl shadow-lg card-hover">
+        <div class="text-4xl mb-6 feature-icon">⚡</div>
+        <h3 class="text-2xl font-bold mb-4 text-gray-900">Smart Insights</h3>
+        <p class="text-gray-600 leading-relaxed">
+          Get AI-powered recommendations and insights to optimize your training
+          and avoid plateaus.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="py-20 bg-white">
+  <div class="mx-auto max-w-[1440px] px-6 lg:px-15 3xl:px-0">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+        What Our <span class="text-[#dda15e]">Athletes</span> Say
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="bg-gray-50 p-8 rounded-2xl card-hover">
+        <div class="text-[#dda15e] text-5xl mb-4">"</div>
+        <p class="text-gray-700 mb-6 leading-relaxed">
+          TrainALot transformed my approach to fitness. The progress tracking is
+          incredible and keeps me motivated every single day.
+        </p>
+        <div class="flex items-center">
+          <div
+            class="w-12 h-12 bg-gradient-to-r from-[#dda15e] to-[#bc6c25] rounded-full flex items-center justify-center text-white font-bold"
+          >
+            S
+          </div>
+          <div class="ml-4">
+            <p class="font-semibold text-gray-900">Sarah Johnson</p>
+            <p class="text-gray-600">Powerlifter</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-gray-50 p-8 rounded-2xl card-hover">
+        <div class="text-[#dda15e] text-5xl mb-4">"</div>
+        <p class="text-gray-700 mb-6 leading-relaxed">
+          The workout plans are fantastic and the community support is amazing.
+          I've never been more consistent with my training.
+        </p>
+        <div class="flex items-center">
+          <div
+            class="w-12 h-12 bg-gradient-to-r from-[#dda15e] to-[#bc6c25] rounded-full flex items-center justify-center text-white font-bold"
+          >
+            M
+          </div>
+          <div class="ml-4">
+            <p class="font-semibold text-gray-900">Mike Chen</p>
+            <p class="text-gray-600">CrossFit Athlete</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-gray-50 p-8 rounded-2xl card-hover">
+        <div class="text-[#dda15e] text-5xl mb-4">"</div>
+        <p class="text-gray-700 mb-6 leading-relaxed">
+          Finally, a fitness tracker that understands serious training. The
+          analytics helped me break through my plateau.
+        </p>
+        <div class="flex items-center">
+          <div
+            class="w-12 h-12 bg-gradient-to-r from-[#dda15e] to-[#bc6c25] rounded-full flex items-center justify-center text-white font-bold"
+          >
+            A
+          </div>
+          <div class="ml-4">
+            <p class="font-semibold text-gray-900">Alex Rodriguez</p>
+            <p class="text-gray-600">Bodybuilder</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 hero-gradient text-white">
+  <div class="mx-auto max-w-[1440px] px-6 lg:px-15 3xl:px-0 text-center">
+    <h2 class="text-4xl md:text-5xl font-bold mb-6">
+      Ready to <span class="text-gray-100">Transform</span> Your Training?
+    </h2>
+    <p class="text-xl mb-8 text-gray-100 max-w-2xl mx-auto">
+      Join thousands of athletes who have already revolutionized their fitness
+      journey with TrainALot
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+      <button
+        [routerLink]="['/signup']"
+        routerLinkActive="router-link-active"
+        class="bg-white text-[#bc6c25] px-8 py-4 rounded-lg font-semibold text-lg hover:cursor-pointer hover:bg-gray-100 transition-all duration-300 transform hover:scale-105 shadow-lg"
+      >
+        Get Started Free
+      </button>
+      <button
+        class="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold text-lg hover:cursor-pointer hover:bg-white hover:text-[#bc6c25] transition-all duration-300 transform hover:scale-105"
+      >
+        View Pricing
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-16">
+  <div class="mx-auto max-w-[1440px] px-6 lg:px-15 3xl:px-0">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div class="col-span-1 md:col-span-2">
+        <h3 class="font-bold text-3xl text-[#dda15e] mb-4">TrainALot</h3>
+        <p class="text-gray-400 mb-6 max-w-md">
+          The ultimate fitness tracking platform for serious athletes who want
+          to take their training to the next level.
+        </p>
+        <div class="flex space-x-4">
+          <div
+            class="w-10 h-10 bg-[#dda15e] rounded-full flex items-center justify-center hover:bg-[#bc6c25] transition-colors cursor-pointer"
+          >
+            <span class="text-white font-bold">f</span>
+          </div>
+          <div
+            class="w-10 h-10 bg-[#dda15e] rounded-full flex items-center justify-center hover:bg-[#bc6c25] transition-colors cursor-pointer"
+          >
+            <span class="text-white font-bold">t</span>
+          </div>
+          <div
+            class="w-10 h-10 bg-[#dda15e] rounded-full flex items-center justify-center hover:bg-[#bc6c25] transition-colors cursor-pointer"
+          >
+            <span class="text-white font-bold">i</span>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="font-semibold text-lg mb-4">Product</h4>
+        <ul class="space-y-2 text-gray-400">
+          <li>
+            <a href="#" class="hover:text-[#dda15e] transition-colors"
+              >Features</a
+            >
+          </li>
+          <li>
+            <a href="#" class="hover:text-[#dda15e] transition-colors"
+              >Pricing</a
+            >
+          </li>
+          <li>
+            <a href="#" class="hover:text-[#dda15e] transition-colors">API</a>
+          </li>
+          <li>
+            <a href="#" class="hover:text-[#dda15e] transition-colors"
+              >Support</a
+            >
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-semibold text-lg mb-4">Company</h4>
+        <ul class="space-y-2 text-gray-400">
+          <li>
+            <a href="#" class="hover:text-[#dda15e] transition-colors">About</a>
+          </li>
+          <li>
+            <a href="#" class="hover:text-[#dda15e] transition-colors">Blog</a>
+          </li>
+          <li>
+            <a href="#" class="hover:text-[#dda15e] transition-colors"
+              >Careers</a
+            >
+          </li>
+          <li>
+            <a href="#" class="hover:text-[#dda15e] transition-colors"
+              >Contact</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+      <p>&copy; 2025 TrainALot. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

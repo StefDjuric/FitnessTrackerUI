@@ -1,7 +1,7 @@
 <div class="min-w-[100px] flex items-center justify-center">
   @if (this.styling === 'primary') {
   <button
-    class="px-4 py-2 w-full rounded-lg flex justify-center gap-2 items-center text-center hover:cursor-pointer bg-[#dda15e] hover:bg-[#bc6c25]"
+    class="px-4 py-2 w-full rounded-lg flex justify-center gap-2 items-center text-center hover:cursor-pointer transition-all duration-300 transform hover:scale-105 shadow-lg bg-[#dda15e] hover:bg-[#bc6c25]"
     [disabled]="disabled"
     [type]="type"
     (click)="OnClick($event)"
@@ -11,7 +11,7 @@
   </button>
   } @else if(this.styling === 'secondary'){
   <button
-    class="px-4 py-2 w-full flex justify-center items-center gap-2 text-center rounded-lg hover:cursor-pointer bg-[#606c38] hover:bg-[#283618]"
+    class="px-4 py-2 w-full flex justify-center items-center gap-2 text-center rounded-lg hover:cursor-pointer transition-all duration-300 transform hover:scale-105 shadow-lg bg-[#606c38] hover:bg-[#283618]"
     [disabled]="disabled"
     [type]="type"
     (click)="OnClick($event)"

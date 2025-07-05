@@ -10,7 +10,7 @@
     @if (this.accountService.currentUser()) { @for (link of PRIVATE_NAV_LINKS;
     track $index) {
     <li
-      class="text-xl 3xl:text-2xl hover:cursor-pointer text-[#dda15e] hover:text-[#bc6c25]"
+      class="text-xl 3xl:text-2xl hover:cursor-pointer text-[#dda15e] hover:text-[#bc6c25] transition-all duration-300 transform hover:font-bold hover:scale-105"
       [routerLink]="link.href"
       routerLinkActive="router-link-active"
     >
@@ -22,7 +22,7 @@
     <!-- Public Nav links -->
     @else { @for (link of PUBLIC_NAV_LINKS; track $index) {
     <li
-      class="text-xl 3xl:text-2xl hover:cursor-pointer text-[#dda15e] hover:text-[#bc6c25]"
+      class="text-xl 3xl:text-2xl hover:cursor-pointer text-[#dda15e] hover:text-[#bc6c25] transition-all duration-300 transform hover:font-bold hover:scale-105"
       [routerLink]="link.href"
       routerLinkActive="router-link-active"
     >

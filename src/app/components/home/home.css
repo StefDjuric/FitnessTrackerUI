@@ -1,0 +1,42 @@
+.hero-gradient {
+  background: linear-gradient(135deg, #dda15e 0%, #bc6c25 100%);
+}
+
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.pulse-animation {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.stat-counter {
+  font-weight: 800;
+  font-size: 2.5rem;
+  background: linear-gradient(45deg, #dda15e, #bc6c25);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.feature-icon {
+  background: linear-gradient(45deg, #dda15e, #bc6c25);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
