@@ -1,0 +1,56 @@
+.hero-gradient {
+  background: linear-gradient(135deg, #bc6c25 0%, #dda15e 50%, #606c38 100%);
+}
+
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.pulse-animation {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.progress-bar {
+  transition: width 0.5s ease;
+}
+
+.habit-card {
+  transition: all 0.3s ease;
+}
+
+.habit-card:hover {
+  transform: scale(1.02);
+}
+
+.stat-card {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  border-left: 4px solid #dda15e;
+}
+
+.workout-log-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border: 1px solid #e5e7eb;
+}
+
+.chart-container {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+.habit-streak {
+  background: linear-gradient(135deg, #606c38 0%, #dda15e 100%);
+}

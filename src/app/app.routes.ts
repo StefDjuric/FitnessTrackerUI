@@ -31,9 +31,9 @@ export const routes: Routes = [
     path: 'signup',
     component: Register,
   },
-  { path: '**', redirectTo: 'home', pathMatch: 'full' },
   { path: 'contact', component: Contact },
   { path: 'about', component: About },
   { path: 'not-found', component: NotFound },
   { path: 'server-error', component: ServerError },
+  { path: '**', redirectTo: 'home', pathMatch: 'full' },
 ];
