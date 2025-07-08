@@ -187,11 +187,15 @@
         <h3 class="text-2xl font-bold text-gray-900 mb-6">Quick Actions</h3>
         <div class="space-y-4 flex flex-col gap-1">
           <app-button
+            [routerLink]="['/log-workout']"
+            routerLinkActive="router-link-active"
             text="Log Workout 🏋️"
             styling="primary"
             type="button"
           ></app-button>
           <app-button
+            [routerLink]="['/log-run']"
+            routerLinkActive="router-link-active"
             text="Log Run 🏃"
             styling="secondary"
             type="button"

@@ -8,12 +8,13 @@ import {
 } from '@angular/core';
 import { Button } from '../button/button';
 import { Chart, registerables } from 'chart.js';
+import { RouterLink } from '@angular/router';
 
 Chart.register(...registerables);
 
 @Component({
   selector: 'app-dashboard',
-  imports: [Button],
+  imports: [Button, RouterLink],
   standalone: true,
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',

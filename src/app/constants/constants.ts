@@ -4,7 +4,7 @@ export const PUBLIC_NAV_LINKS: Array<{ text: string; href: string }> = [
 ];
 
 export const PRIVATE_NAV_LINKS: Array<{ text: string; href: string }> = [
-  { text: 'Dashboard', href: '/dasboard' },
+  { text: 'Dashboard', href: '/dashboard' },
   { text: 'Workouts', href: '/workouts' },
   { text: 'Edit profile', href: '/edit-profile' },
 ];

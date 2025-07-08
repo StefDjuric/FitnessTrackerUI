@@ -8,6 +8,8 @@ import { ServerError } from './components/server-error/server-error';
 import { Register } from './components/register/register';
 import { authGuard } from './guards/auth-guard';
 import { Dashboard } from './components/dashboard/dashboard';
+import { WeightliftingLogForm } from './components/weightlifting-log-form/weightlifting-log-form';
+import { LogRun } from './components/log-run/log-run';
 
 export const routes: Routes = [
   // Private routes
@@ -19,7 +21,11 @@ export const routes: Routes = [
     path: '',
     runGuardsAndResolvers: 'always',
     canActivate: [authGuard],
-    children: [{ path: 'dashboard', component: Dashboard }],
+    children: [
+      { path: 'dashboard', component: Dashboard },
+      { path: 'log-workout', component: WeightliftingLogForm },
+      { path: 'log-run', component: LogRun },
+    ],
   },
   // Public routes
   { path: 'home', component: Home },
