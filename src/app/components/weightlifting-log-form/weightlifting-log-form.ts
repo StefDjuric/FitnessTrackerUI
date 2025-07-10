@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import {
   FormArray,
   FormBuilder,
   FormGroup,
-  NgForm,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { WorkoutData } from '../../../models/WorkoutData';
+import { WeightliftingData } from '../../../models/WeightliftingData';
 import { Button } from '../button/button';
+import { WorkoutService } from '../../services/workoutService';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-weightlifting-log-form',
@@ -19,6 +21,9 @@ import { Button } from '../button/button';
 export class WeightliftingLogForm implements OnInit {
   workoutForm: FormGroup = new FormGroup({});
   isSubmitting: boolean = false;
+  workoutService: WorkoutService = inject(WorkoutService);
+  toastr = inject(ToastrService);
+  router = inject(Router);
 
   constructor(private fb: FormBuilder) {
     this.workoutForm = this.fb.group({
@@ -55,8 +60,8 @@ export class WeightliftingLogForm implements OnInit {
 
   createExercsiseFrom(): FormGroup {
     return this.fb.group({
-      exerciseName: ['', Validators.required],
-      weightInKg: [0.5, [Validators.required, Validators.min(0.5)]],
+      name: ['', Validators.required],
+      weightInKgs: [0.5, [Validators.required, Validators.min(0.5)]],
       series: [1, [Validators.required, Validators.min(1)]],
       reps: [1, [Validators.required, Validators.min(1)]],
     });
@@ -65,14 +70,25 @@ export class WeightliftingLogForm implements OnInit {
   onSubmit() {
     if (this.workoutForm.valid) this.isSubmitting = true;
 
-    const workoutData: WorkoutData = {
+    const workoutData: WeightliftingData = {
       type: this.workoutForm.value.type,
       durationMin: this.workoutForm.value.durationMin,
-      workoutDate: new Date(this.workoutForm.value.workoutDate),
+      workoutDate: new Date(this.workoutForm.value.workoutDate).toISOString(),
       calories: this.workoutForm.value.calories || null,
       notes: this.workoutForm.value.notes || null,
-      exercises: this.workoutForm.value.exercises,
+      weightliftingLog: { exercises: this.workoutForm.value.exercises },
     };
+
+    this.workoutService.AddWorkout(workoutData).subscribe({
+      next: (_) => {
+        this.toastr.success('Successfully logged workout.');
+        this.router.navigateByUrl('/dashboard');
+      },
+      error: (err) => {
+        this.toastr.error(err);
+      },
+    });
+
     console.log('Workout data: ', workoutData);
     console.log('Exercises: ', this.exercises);
     this.isSubmitting = false;

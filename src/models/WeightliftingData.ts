@@ -1,10 +1,12 @@
 import { Exercise } from './Exercise';
 
-export interface WorkoutData {
+export interface WeightliftingData {
   type: string;
   durationMin: number;
-  workoutDate: Date;
+  workoutDate: string;
   calories?: number;
   notes?: string;
-  exercises?: Exercise[];
+  weightliftingLog: {
+    exercises: Exercise[];
+  };
 }
