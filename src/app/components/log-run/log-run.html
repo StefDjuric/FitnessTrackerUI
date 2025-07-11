@@ -1,1 +1,211 @@
-<p>log-run works!</p>
+<main class="mx-auto max-w-[1440px] px-6 lg:px-15 3xl:px-0 py-8">
+  <!-- Header -->
+  <div class="mb-8">
+    <h2 class="text-3xl font-bold text-gray-900 mb-2">Log your workout</h2>
+    <p class="text-gray-700">Track your run sessions</p>
+  </div>
+
+  <!-- Workout form -->
+  <form [formGroup]="workoutForm" (ngSubmit)="onSubmit()" class="space-y-8">
+    <!-- Workout information card -->
+    <div class="bg-white p-6 rounded-2xl shadow-lg card-hover">
+      <h3 class="text-2xl font-bold text-gray-900 mb-6">Session Information</h3>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Workout Type -->
+        <div>
+          <label
+            for="runType"
+            class="block text-sm font-medium text-gray-700 mb-2"
+            >Type</label
+          >
+          <select
+            formControlName="type"
+            id="runType"
+            class="w-full px-3 py-2 border-1 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#dda15e] focus:border-transparent"
+          >
+            <option value="Run">Run</option>
+          </select>
+          <div class="text-red-500 text-sm mt-1">
+            {{ getErrorMessage("type") }}
+          </div>
+        </div>
+        <!-- End of Workout Type -->
+
+        <!-- Duration -->
+        <div>
+          <label
+            for="runDurationMin"
+            class="block text-sm font-medium text-gray-700 mb-2"
+            >Duration (minutes)</label
+          >
+          <input
+            type="number"
+            id="runDurationMin"
+            formControlName="durationMin"
+            min="1"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#dda15e] focus:border-transparent"
+            placeholder="45"
+          />
+          <div class="text-red-500 text-sm mt-1">
+            {{ getErrorMessage("durationMin") }}
+          </div>
+        </div>
+        <!-- End of Duration -->
+
+        <!-- Workout Date -->
+        <div>
+          <label
+            for="runWorkoutDate"
+            class="block text-sm font-medium text-gray-700 mb-2"
+            >Workout Date</label
+          >
+          <input
+            type="date"
+            formControlName="workoutDate"
+            id="runWorkoutDate"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#dda15e] focus:border-transparent"
+          />
+          <div class="text-red-500 text-sm mt-1">
+            {{ getErrorMessage("workoutDate") }}
+          </div>
+        </div>
+        <!-- End of Workout Date -->
+
+        <!-- Calories (Optional) -->
+        <div>
+          <label
+            for="runCalories"
+            class="block text-sm font-medium text-gray-700 mb-2"
+          >
+            Calories Burned (optional)
+          </label>
+          <input
+            type="number"
+            id="runCalories"
+            formControlName="calories"
+            min="0"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#dda15e] focus:border-transparent"
+            placeholder="350"
+          />
+        </div>
+        <!-- End of Calories (Optional) -->
+
+        <!-- Notes (Optional) -->
+        <div class="md:col-span-2">
+          <label
+            for="runNotes"
+            class="block text-sm font-medium text-gray-700 mb-2"
+          >
+            Notes (optional)
+          </label>
+          <textarea
+            id="runNotes"
+            formControlName="notes"
+            rows="3"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#dda15e] focus:border-transparent"
+            placeholder="Any additional notes about your workout..."
+          ></textarea>
+        </div>
+        <!-- End of Notes (Optional) -->
+      </div>
+    </div>
+    <!-- End of Workout information card -->
+
+    <!-- Run Log section -->
+    <div class="bg-white p-6 rounded-2xl shadow-lg card-hover">
+      <div class="flex items-center justify-between mb-6">
+        <h3 class="text-2xl font-bold text-gray-900">Run Information</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Distance ran -->
+          <div>
+            <label
+              for="distanceRan"
+              class="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Distance ran (In km)
+            </label>
+            <input
+              type="number"
+              formControlName="distanceInKms"
+              id="distanceRan"
+              class="w-full px-3 py-2 border-1 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#dda15e] focus:border-transparent"
+            />
+            <div class="text-red-500 text-sm mt-1">
+              {{ getErrorMessage("distanceInKms") }}
+            </div>
+          </div>
+          <!-- End of Distance ran -->
+
+          <!-- Shoes used input -->
+          <div>
+            <label
+              for="shoes"
+              class="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Shoes used (Optional)
+            </label>
+            <input
+              type="text"
+              formControlName="shoe"
+              id="shoes"
+              class="w-full px-3 py-2 border-1 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#dda15e] focus:border-transparent"
+            />
+            <div class="text-red-500 text-sm mt-1">
+              {{ getErrorMessage("distanceInKms") }}
+            </div>
+          </div>
+          <!-- End of Shoes used input -->
+        </div>
+      </div>
+    </div>
+    <!-- End of Run Log section -->
+
+    <!-- Action Buttons -->
+    <div class="flex justify-end space-x-4">
+      <app-button
+        type="button"
+        text="Reset"
+        (clicked)="resetForm()"
+        styling="secondary"
+      >
+      </app-button>
+      <button
+        type="submit"
+        [disabled]="workoutForm.invalid || isSubmitting"
+        class="px-6 py-2 bg-gradient-to-r from-[#dda15e] to-[#bc6c25] text-white rounded-lg font-semibold hover:cursor-pointer hover:scale-105 hover:from-[#bc6c25] hover:to-[#dda15e] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+      >
+        @if (!isSubmitting) {
+        <span>Log Workout</span>
+
+        } @else {
+        <span class="flex items-center">
+          <svg
+            class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"
+            ></circle>
+            <path
+              class="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
+          </svg>
+          Logging...
+        </span>
+
+        }
+      </button>
+    </div>
+    <!-- End of Action Buttons -->
+  </form>
+</main>

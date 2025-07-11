@@ -76,7 +76,9 @@ export class WeightliftingLogForm implements OnInit {
       workoutDate: new Date(this.workoutForm.value.workoutDate).toISOString(),
       calories: this.workoutForm.value.calories || null,
       notes: this.workoutForm.value.notes || null,
-      weightliftingLog: { exercises: this.workoutForm.value.exercises },
+      weightliftingLog: {
+        exercises: this.workoutForm.value.exercises,
+      },
     };
 
     this.workoutService.AddWorkout(workoutData).subscribe({
@@ -89,8 +91,6 @@ export class WeightliftingLogForm implements OnInit {
       },
     });
 
-    console.log('Workout data: ', workoutData);
-    console.log('Exercises: ', this.exercises);
     this.isSubmitting = false;
   }
 
