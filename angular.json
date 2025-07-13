@@ -23,7 +23,11 @@
                 "input": "public"
               }
             ],
-            "styles": ["node_modules/ngx-toastr/toastr.css", "src/styles.css"]
+            "styles": [
+              "node_modules/ngx-toastr/toastr.css",
+              "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
+              "src/styles.css"
+            ]
           },
           "configurations": {
             "production": {
