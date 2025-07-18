@@ -11,7 +11,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class Button {
   @Input() text: string = '';
   @Input() type: 'button' | 'submit' = 'button';
-  @Input() styling: 'primary' | 'secondary' = 'primary';
+  @Input() styling: 'primary' | 'secondary' | 'tertiary' = 'primary';
   @Input() disabled: boolean = false;
   @Input() iconSrc: string | null = null;
 

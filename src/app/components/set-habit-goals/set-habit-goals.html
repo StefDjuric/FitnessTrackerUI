@@ -1,0 +1,150 @@
+<main class="mx-auto max-w-[1440x] px-6 lg:px-15 3xl:px-0 py-8">
+  <!-- Header -->
+  <div class="mb-8">
+    <h2 class="text-3xl font-bold text-gray-900 mb-2">Set your Habit Goals</h2>
+    <p class="text-gray-700">Track your habits for growth</p>
+  </div>
+  <!-- End of header -->
+
+  <!-- Habits Form -->
+  <form class="space-y-8" [formGroup]="habitsForm" (ngSubmit)="onSubmit()">
+    <!-- Goal Setting Card -->
+    <div class="bg-white p-6 rounded-2xl shadow-lg card-hover">
+      <h3 class="text-2xl font-bold text-gray-900 mb-6">Set your goals</h3>
+
+      <!-- Inputs grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Workout Goal -->
+        <div>
+          <label
+            for="workout-goal"
+            class="block text-sm font-medium text-gray-700 mb-2"
+            >Number of workouts in a week</label
+          >
+          <input
+            type="number"
+            formControlName="workoutsGoalInWeek"
+            min="1"
+            id="workout-goal"
+            placeholder="3"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#dda15e] focus:border-transparent"
+          />
+          <div class="text-red-500 text-sm mt-1">
+            {{ getErrorMessage("workoutsGoalInWeek") }}
+          </div>
+        </div>
+        <!-- End of Workout Goal -->
+        <!-- Water Goal -->
+        <div>
+          <label
+            for="water-goal-in-liters"
+            class="block text-sm font-medium text-gray-700 mb-2"
+            >Water Goal In Liters</label
+          >
+          <input
+            type="number"
+            formControlName="waterGoalInLiters"
+            min="1"
+            id="water-goal-in-liters"
+            placeholder="3"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#dda15e] focus:border-transparent"
+          />
+          <div class="text-red-500 text-sm mt-1">
+            {{ getErrorMessage("waterGoalInLiters") }}
+          </div>
+        </div>
+        <!-- End of Water Goal -->
+        <!-- Weight Goal -->
+        <div>
+          <label
+            for="weight-goal"
+            class="block text-sm font-medium text-gray-700 mb-2"
+            >Your Weight Goal (In kg)</label
+          >
+          <input
+            type="number"
+            formControlName="weightGoal"
+            min="1"
+            id="weight-goal"
+            placeholder="80"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#dda15e] focus:border-transparent"
+          />
+          <div class="text-red-500 text-sm mt-1">
+            {{ getErrorMessage("weightGoal") }}
+          </div>
+        </div>
+        <!-- End of Weight Goal -->
+        <!-- Meals Eaten Goal -->
+        <div>
+          <label
+            for="meals-eaten-goal"
+            class="block text-sm font-medium text-gray-700 mb-2"
+            >Number of meals you would like to eat in a day</label
+          >
+          <input
+            type="number"
+            formControlName="mealsEatenGoal"
+            min="1"
+            id="meals-eaten-goal"
+            placeholder="3"
+            class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#dda15e] focus:border-transparent"
+          />
+          <div class="text-red-500 text-sm mt-1">
+            {{ getErrorMessage("mealsEatenGoal") }}
+          </div>
+        </div>
+        <!-- Meals Eaten Goal -->
+      </div>
+      <!-- End of Inputs grid -->
+    </div>
+    <!-- End of Goal Setting Card -->
+
+    <!-- Action Buttons -->
+    <div class="flex justify-end space-x-4">
+      <app-button
+        type="button"
+        text="Reset"
+        (clicked)="habitsForm.reset()"
+        styling="secondary"
+      >
+      </app-button>
+      <button
+        type="submit"
+        [disabled]="habitsForm.invalid || isSubmitting"
+        class="px-6 py-2 bg-gradient-to-r from-[#dda15e] to-[#bc6c25] text-white rounded-lg font-semibold hover:cursor-pointer hover:scale-105 hover:from-[#bc6c25] hover:to-[#dda15e] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+      >
+        @if (!isSubmitting) {
+        <span>Set Goals</span>
+
+        } @else {
+        <span class="flex items-center">
+          <svg
+            class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+          >
+            <circle
+              class="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"
+            ></circle>
+            <path
+              class="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
+          </svg>
+          Setting...
+        </span>
+
+        }
+      </button>
+    </div>
+    <!-- End of Action Buttons -->
+  </form>
+  <!--End of Habits Form -->
+</main>

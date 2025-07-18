@@ -16,4 +16,9 @@ export class Navbar {
   PUBLIC_NAV_LINKS = PUBLIC_NAV_LINKS;
   PRIVATE_NAV_LINKS = PRIVATE_NAV_LINKS;
   accountService = inject(Account);
+  activePage: string = '';
+
+  setActivePage(page: string) {
+    this.activePage = page;
+  }
 }

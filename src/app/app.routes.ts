@@ -10,6 +10,7 @@ import { authGuard } from './guards/auth-guard';
 import { Dashboard } from './components/dashboard/dashboard';
 import { WeightliftingLogForm } from './components/weightlifting-log-form/weightlifting-log-form';
 import { LogRun } from './components/log-run/log-run';
+import { SetHabitGoals } from './components/set-habit-goals/set-habit-goals';
 
 export const routes: Routes = [
   // Private routes
@@ -25,6 +26,7 @@ export const routes: Routes = [
       { path: 'dashboard', component: Dashboard },
       { path: 'log-workout', component: WeightliftingLogForm },
       { path: 'log-run', component: LogRun },
+      { path: 'set-habits', component: SetHabitGoals },
     ],
   },
   // Public routes

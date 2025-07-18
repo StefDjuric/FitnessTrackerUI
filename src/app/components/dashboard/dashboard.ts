@@ -15,12 +15,17 @@ import { WorkoutService } from '../../services/workoutService';
 import { Workout } from '../../../models/Workout';
 import { ToastrService } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
+import { Goals } from '../../../models/Goals';
+import { GoalService } from '../../services/goal-service';
+import { ProgressService } from '../../services/progress-service';
+import { WeeklyProgress } from '../../../models/WeeklyProgress';
+import { ProgressChangeModal } from '../progress-change-modal/progress-change-modal';
 
 Chart.register(...registerables);
 
 @Component({
   selector: 'app-dashboard',
-  imports: [Button, RouterLink, DatePipe],
+  imports: [Button, RouterLink, DatePipe, ProgressChangeModal],
   standalone: true,
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
@@ -33,20 +38,36 @@ export class Dashboard implements OnDestroy, OnInit {
   private chartRunningValues: Array<number> = [];
   private chartLiftingValues: Array<number> = [];
   private toastrService = inject(ToastrService);
+  goalService = inject(GoalService);
   accountService = inject(Account);
   workoutService = inject(WorkoutService);
-  private userId = this.accountService.getUserIdFromToken();
+  progressService = inject(ProgressService);
+  userId = this.accountService.getUserIdFromToken();
   userWorkouts: Workout[] = [];
   workoutLimit = 3;
   workoutCount: number = 0;
   runCount: number = 0;
   liftingCount: number = 0;
+  currentUserGoals: Goals = {
+    mealsEatenGoal: 3,
+    waterGoalInLiters: 3,
+    workoutsGoalInWeek: 3,
+    weightGoal: 80,
+  };
+  weeklyProgress: WeeklyProgress = {
+    mealsEaten: 0,
+    waterConsumed: 0,
+    workoutsDone: 0,
+    weekStartDate: new Date(Date.now()),
+  };
+  isModalOpen: boolean = false;
 
   ngOnInit(): void {
     this.getUserWorkouts(this.userId, this.workoutLimit);
     this.getWorkoutCount(this.userId);
     this.getRunCount(this.userId);
     this.getLiftingCount(this.userId);
+    this.getUserGoals(this.userId);
   }
 
   initializeChart() {
@@ -261,5 +282,56 @@ export class Dashboard implements OnDestroy, OnInit {
         console.error(err);
       },
     });
+  }
+
+  getUserGoals(userId: number | null) {
+    if (userId === null)
+      return console.error('Could not find the userId in token.');
+
+    this.goalService.GetCurrentGoalsForUser(userId).subscribe({
+      next: (goals) => {
+        if (goals) {
+          this.currentUserGoals = goals;
+          this.getWeeklyProgressForUser(this.userId);
+        }
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
+  }
+
+  getWeeklyProgressForUser(userId: number | null) {
+    if (userId === null) return console.error('No user id found in token.');
+
+    this.progressService.getWeeklyProgressByUserId(userId).subscribe({
+      next: (progress) => {
+        if (progress) {
+          this.weeklyProgress = progress;
+          console.log('Successfully fetched weekly progress.');
+        }
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
+  }
+
+  openModal() {
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
+  }
+
+  onProgressUpdated(updatedProgress: WeeklyProgress) {
+    this.weeklyProgress = {
+      ...this.weeklyProgress,
+      mealsEaten: updatedProgress.mealsEaten,
+      waterConsumed: updatedProgress.waterConsumed,
+    };
+
+    this.closeModal();
   }
 }

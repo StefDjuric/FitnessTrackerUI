@@ -19,5 +19,15 @@
     <img *ngIf="iconSrc" [src]="iconSrc" [alt]="text" width="24" height="24" />
     <p class="text-lg text-white">{{ text }}</p>
   </button>
+  } @else {
+  <button
+    class="px-4 py-2 w-full flex justify-center items-center gap-2 text-center rounded-lg hover:cursor-pointer transition-all duration-300 transform hover:scale-105 shadow-lg bg-[#003566] hover:bg-[#001d3d]"
+    [disabled]="disabled"
+    [type]="type"
+    (click)="OnClick($event)"
+  >
+    <img *ngIf="iconSrc" [src]="iconSrc" [alt]="text" width="24" height="24" />
+    <p class="text-lg text-white">{{ text }}</p>
+  </button>
   }
 </div>

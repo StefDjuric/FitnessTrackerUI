@@ -58,8 +58,12 @@
     <div class="stat-card p-6 rounded-2xl shadow-lg card-hover">
       <div class="flex items-center justify-between">
         <div>
-          <p class="text-gray-600 text-sm font-medium">Weekly Goal</p>
-          <p class="text-3xl font-bold text-gray-900">6/8</p>
+          <p class="text-gray-600 text-sm font-medium">Weekly Workout Goal</p>
+          <p class="text-3xl font-bold text-gray-900">
+            {{ weeklyProgress.workoutsDone }}/{{
+              currentUserGoals.workoutsGoalInWeek
+            }}
+          </p>
         </div>
         <div class="text-4xl">🎯</div>
       </div>
@@ -73,6 +77,7 @@
       </div>
     </div>
   </div>
+  <!-- End of Stats Card -->
 
   <!-- Main Dashboard grid -->
   <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -202,6 +207,13 @@
             styling="secondary"
             type="button"
           ></app-button>
+          <app-button
+            [routerLink]="['/set-habits']"
+            routerLinkActive="router-link-active"
+            text="Set Habit Goals 🌱"
+            styling="tertiary"
+            type="button"
+          ></app-button>
         </div>
       </div>
       <!-- End of Quick Actions -->
@@ -220,7 +232,7 @@
                   ✓
                 </div>
                 <span class="font-semibold text-gray-900"
-                  >Weekly Workout Goal</span
+                  >Weekly Workout Streak</span
                 >
               </div>
               <div
@@ -239,7 +251,10 @@
           <!-- End of Workout Habit Card  -->
 
           <!-- Water Habit Card  -->
-          <div class="habit-card p-4 bg-gray-50 rounded-lg">
+          <div
+            class="habit-card p-4 bg-gray-50 rounded-lg hover:cursor-pointer"
+            (click)="openModal()"
+          >
             <div class="flex items-center justify-between mb-2">
               <div class="flex items-center space-x-3">
                 <div
@@ -252,7 +267,10 @@
               <div
                 class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-semibold"
               >
-                7/8 glasses
+                {{ weeklyProgress.waterConsumed }}/{{
+                  currentUserGoals.waterGoalInLiters
+                }}
+                liters
               </div>
             </div>
             <div class="w-full bg-gray-200 rounded-full h-2">
@@ -271,10 +289,10 @@
                 <div
                   class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold"
                 >
-                  kg
+                  ⏲️
                 </div>
                 <span class="font-semibold text-gray-900"
-                  >Weight Goal 80kg</span
+                  >Weight Goal {{ currentUserGoals.weightGoal }}kg</span
                 >
               </div>
               <div
@@ -293,7 +311,10 @@
           <!-- End of Weight Card  -->
 
           <!-- Meals Habit Card  -->
-          <div class="habit-card p-4 bg-gray-50 rounded-lg">
+          <div
+            class="habit-card p-4 bg-gray-50 rounded-lg hover:cursor-pointer"
+            (click)="openModal()"
+          >
             <div class="flex items-center justify-between mb-2">
               <div class="flex items-center space-x-3">
                 <div
@@ -306,7 +327,10 @@
               <div
                 class="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold"
               >
-                4/5 meals
+                {{ weeklyProgress.mealsEaten }}/{{
+                  currentUserGoals.mealsEatenGoal
+                }}
+                meals
               </div>
             </div>
             <div class="w-full bg-gray-200 rounded-full h-2">
@@ -324,3 +348,11 @@
     <!-- End of Right Column -->
   </div>
 </main>
+
+<app-progress-change-modal
+  [isOpen]="isModalOpen"
+  [userId]="userId"
+  (closeModalEvent)="closeModal()"
+  [currentWeeklyProgress]="weeklyProgress"
+  (updateWeeklyProgressEvent)="onProgressUpdated($event)"
+></app-progress-change-modal>
