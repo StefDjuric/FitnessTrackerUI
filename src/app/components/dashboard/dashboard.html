@@ -44,14 +44,16 @@
     <div class="stat-card p-6 rounded-2xl shadow-lg card-hover">
       <div class="flex items-center justify-between">
         <div>
-          <p class="text-gray-600 text-sm font-medium">Current Streak</p>
-          <p class="text-3xl font-bold text-gray-900">14</p>
+          <p class="text-gray-600 text-sm font-medium">Current Weekly Streak</p>
+          <p class="text-3xl font-bold text-gray-900">
+            {{ weeklyProgress.weeklyWorkoutStreak || 0 }}
+          </p>
         </div>
         <div class="text-4xl">🔥</div>
       </div>
       <div class="mt-4 flex items-center text-sm">
         <span class="text-green-600 font-medium">Active</span>
-        <span class="text-gray-600 ml-1">days in a row</span>
+        <span class="text-gray-600 ml-1">weeks in a row</span>
       </div>
     </div>
 
@@ -223,7 +225,7 @@
         <h3 class="text-2xl font-bold text-gray-900 mb-6">Habit Tracker</h3>
         <div class="space-y-4">
           <!-- Workout Habit Card -->
-          <div class="habit-card p-4 bg-gray-50 rounded-lg">
+          <!-- <div class="habit-card p-4 bg-gray-50 rounded-lg">
             <div class="flex items-center justify-between mb-2">
               <div class="flex items-center space-x-3">
                 <div
@@ -248,7 +250,7 @@
               ></div>
             </div>
           </div>
-          <!-- End of Workout Habit Card  -->
+          End of Workout Habit Card  -->
 
           <!-- Water Habit Card  -->
           <div

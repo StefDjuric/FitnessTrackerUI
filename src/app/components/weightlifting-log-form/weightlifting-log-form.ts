@@ -11,6 +11,10 @@ import { Button } from '../button/button';
 import { WorkoutService } from '../../services/workoutService';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { ProgressService } from '../../services/progress-service';
+import { WeeklyProgress } from '../../../models/WeeklyProgress';
+import { Account } from '../../services/account';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-weightlifting-log-form',
@@ -21,9 +25,19 @@ import { Router } from '@angular/router';
 export class WeightliftingLogForm implements OnInit {
   workoutForm: FormGroup = new FormGroup({});
   isSubmitting: boolean = false;
+  accountService = inject(Account);
   workoutService: WorkoutService = inject(WorkoutService);
+  progressService = inject(ProgressService);
   toastr = inject(ToastrService);
   router = inject(Router);
+  userId: number | null = this.accountService.getUserIdFromToken();
+  weeklyProgress: WeeklyProgress = {
+    mealsEaten: 0,
+    waterConsumed: 0,
+    weekStartDate: new Date(Date.now()),
+    workoutsDone: 0,
+  };
+  hasWeeklyProgress: boolean = false;
 
   constructor(private fb: FormBuilder) {
     this.workoutForm = this.fb.group({
@@ -42,6 +56,7 @@ export class WeightliftingLogForm implements OnInit {
 
   ngOnInit(): void {
     this.addExercise();
+    this.checkIfUserHasWeeklyProgress();
   }
 
   get exercises(): FormArray {
@@ -84,6 +99,15 @@ export class WeightliftingLogForm implements OnInit {
     this.workoutService.AddWorkout(workoutData).subscribe({
       next: (_) => {
         this.toastr.success('Successfully logged workout.');
+        const updatedWeeklyProgress: WeeklyProgress = {};
+        if (this.weeklyProgress.workoutsDone === 0) {
+          updatedWeeklyProgress.weeklyWorkoutStreak =
+            this.weeklyProgress.weeklyWorkoutStreak! + 1;
+        }
+
+        updatedWeeklyProgress.workoutsDone =
+          this.weeklyProgress.workoutsDone! + 1;
+        this.incrementWeeklyWorkoutCount(this.userId, updatedWeeklyProgress);
         this.router.navigateByUrl('/dashboard');
       },
       error: (err) => {
@@ -146,5 +170,83 @@ export class WeightliftingLogForm implements OnInit {
       }
     }
     return '';
+  }
+
+  incrementWeeklyWorkoutCount(
+    userId: number | null,
+    progressData: WeeklyProgress
+  ) {
+    if (userId === null) return console.error('No userId found in token');
+
+    if (!this.hasWeeklyProgress) {
+      this.toastr.info(
+        'Please set up your habits to track workouts done and other information.'
+      );
+      return;
+    }
+
+    this.progressService.patchWeeklyProgress(userId, progressData).subscribe({
+      next: (_) => {
+        console.log('Successfully patched workouts done.');
+      },
+      error: (err) => {
+        this.toastr.error('Could not update workout count.');
+        console.error(err);
+      },
+    });
+  }
+
+  getWeeklyProgress(userId: number | null) {
+    if (userId === null)
+      return console.error('Could not find userId in token.');
+
+    this.progressService
+      .getWeeklyProgressByUserId(userId)
+      .pipe(
+        catchError((error) => {
+          if (error.status === 404) {
+            console.log('No weekly progress found for user (404).');
+            return of(null);
+          }
+          console.error('Error fetching weekly progress:', error);
+          return of(null);
+        })
+      )
+      .subscribe({
+        next: (progress) => {
+          if (progress) {
+            this.weeklyProgress = progress;
+          }
+        },
+      });
+  }
+
+  checkIfUserHasWeeklyProgress() {
+    if (this.userId === null) return;
+
+    this.progressService
+      .getWeeklyProgressByUserId(this.userId)
+      .pipe(
+        catchError((error) => {
+          if (error.status === 404) {
+            console.log('No weekly progress found for user.');
+            return of(null);
+          }
+          console.error('Error checking weekly progress.');
+          return of(null);
+        })
+      )
+      .subscribe({
+        next: (progress) => {
+          this.hasWeeklyProgress = !!progress;
+          if (progress) {
+            this.weeklyProgress = progress;
+          }
+        },
+        error: (err) => {
+          this.hasWeeklyProgress = false;
+          console.error('Could not check weekly progress. ', err);
+        },
+      });
   }
 }

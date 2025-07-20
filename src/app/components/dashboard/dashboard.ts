@@ -20,6 +20,7 @@ import { GoalService } from '../../services/goal-service';
 import { ProgressService } from '../../services/progress-service';
 import { WeeklyProgress } from '../../../models/WeeklyProgress';
 import { ProgressChangeModal } from '../progress-change-modal/progress-change-modal';
+import { User } from '../../../models/User';
 
 Chart.register(...registerables);
 
@@ -43,6 +44,7 @@ export class Dashboard implements OnDestroy, OnInit {
   workoutService = inject(WorkoutService);
   progressService = inject(ProgressService);
   userId = this.accountService.getUserIdFromToken();
+  currentUser?: User;
   userWorkouts: Workout[] = [];
   workoutLimit = 3;
   workoutCount: number = 0;
@@ -234,6 +236,8 @@ export class Dashboard implements OnDestroy, OnInit {
         console.log(this.userWorkouts);
 
         this.initializeChart();
+
+        this.checkAndResetWeeklyProgressIfInactive();
       },
       error: (err) => {
         this.toastrService.error('Could not fetch user workouts. ', err);
@@ -309,6 +313,8 @@ export class Dashboard implements OnDestroy, OnInit {
         if (progress) {
           this.weeklyProgress = progress;
           console.log('Successfully fetched weekly progress.');
+
+          this.checkAndResetDailyProgress();
         }
       },
       error: (err) => {
@@ -333,5 +339,94 @@ export class Dashboard implements OnDestroy, OnInit {
     };
 
     this.closeModal();
+  }
+
+  private checkAndResetDailyProgress() {
+    const today = new Date().toDateString();
+    const storedDate = localStorage.getItem('lastProgressResetDate');
+
+    if (storedDate !== today) {
+      if (new Date().getDay() === 1) {
+        this.weeklyProgress = {
+          ...this.weeklyProgress,
+          workoutsDone: 0,
+          waterConsumed: 0,
+          mealsEaten: 0,
+          weekStartDate: new Date(),
+        };
+      } else {
+        this.weeklyProgress = {
+          ...this.weeklyProgress,
+          waterConsumed: 0,
+          mealsEaten: 0,
+        };
+      }
+
+      localStorage.setItem('lastProgressResetDate', today);
+
+      this.resetDailyProgressOnServer(this.userId);
+    }
+  }
+
+  private resetDailyProgressOnServer(userId: number | null) {
+    if (userId === null) return console.error('No userId found in token.');
+    this.progressService
+      .patchWeeklyProgress(userId, this.weeklyProgress)
+      .subscribe({
+        next: (_) => {
+          console.log('Successfully reset daily progress on server.');
+        },
+        error: (err) => {
+          console.error('Could not reset daily progress on server. ', err);
+        },
+      });
+  }
+
+  private checkAndResetWeeklyProgressIfInactive() {
+    const sevenDaysAgo = new Date();
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+    const hasRecentWorkouts = this.userWorkouts.some((workout) => {
+      const workoutDate = new Date(workout.workoutDate);
+      return workoutDate >= sevenDaysAgo;
+    });
+
+    if (!hasRecentWorkouts && this.weeklyProgress.workoutsDone! > 0) {
+      this.resetWeeklyProgress();
+    }
+  }
+
+  private resetWeeklyProgress() {
+    this.weeklyProgress = {
+      ...this.weeklyProgress,
+      workoutsDone: 0,
+      waterConsumed: 0,
+      mealsEaten: 0,
+      weekStartDate: new Date(),
+    };
+
+    this.resetWeeklyProgressOnServer(this.userId);
+
+    this.toastrService.info(
+      'Weekly progress reset due to no workouts in the past 7 days.'
+    );
+  }
+
+  resetWeeklyProgressOnServer(userId: number | null) {
+    if (userId === null) return console.error('No userId found in token.');
+
+    this.progressService
+      .patchWeeklyProgress(userId, this.weeklyProgress)
+      .subscribe({
+        next: (_) => {
+          console.log('Successfully reset weekly progress on server.');
+        },
+        error: (err) => {
+          console.error('Could not reset weekly progress on server. ', err);
+          this.toastrService.error(
+            'Failed to reset weekly progress on server.'
+          );
+        },
+      });
   }
 }

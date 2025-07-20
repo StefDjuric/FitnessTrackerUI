@@ -3,4 +3,5 @@ export interface WeeklyProgress {
   waterConsumed?: number;
   mealsEaten?: number;
   weekStartDate?: Date;
+  weeklyWorkoutStreak?: number;
 }
