@@ -1,0 +1,139 @@
+<main class="mx-auto max-w-[1440px] px-6 lg:px-20 3xl:px-0 py-8">
+  <!-- Header -->
+  <div class="mb-8">
+    <h2 class="text-3xl font-bold text-gray-900 mb-2">
+      Log your current weight
+    </h2>
+    <p class="text-gray-700">Track your weight progress</p>
+  </div>
+  <!-- End of Header -->
+
+  <!-- Grid container -->
+  <div class="grid grid-cols-1 gap-8">
+    <!-- Progress Chart -->
+    <div class="chart-container p-6 rounded-lg shadow-lg card-hover">
+      <div class="flex items-center justify-between mb-6">
+        <h3 class="text-2xl font-bold text-gray-900">Progress Overview</h3>
+        <div class="flex space-x-2">
+          <button
+            class="px-3 py-1 bg-[#dda15e] text-white rounded-lg text-sm hover:cursor-pointer"
+          >
+            Last 30 days
+          </button>
+          <button
+            class="px-3 py-1 bg-[#dda15e] text-white rounded-lg text-sm hover:cursor-pointer"
+          >
+            Last 6 months
+          </button>
+          <button
+            class="px-3 py-1 bg-[#dda15e] text-white rounded-lg text-sm hover:cursor-pointer"
+          >
+            Last year
+          </button>
+        </div>
+      </div>
+
+      <canvas
+        #progressChart
+        id="progressChart"
+        width="400"
+        height="300"
+      ></canvas>
+    </div>
+    <!-- End of Progress Chart -->
+    <form class="space-y-8" [formGroup]="weightForm" (ngSubmit)="onSubmit()">
+      <!-- Weight input card -->
+      <div class="bg-white p-6 rounded-2xl shadow-lg card-hover">
+        <h3 class="text-2xl font-bold text-gray-900 mb-6">
+          Enter your current weight here
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Current Weight Input -->
+          <div>
+            <label
+              for="currentWeight"
+              class="block text-sm font-medium text-gray-700 mb-2"
+              >Current Weight</label
+            >
+            <input
+              type="number"
+              id="currentWeight"
+              formControlName="weight"
+              min="1"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#dda15e] focus:border-transparent"
+              placeholder="80"
+            />
+
+            <div class="text-red-500 text-sm mt-1">
+              {{ getErrorMessage("weight") }}
+            </div>
+          </div>
+          <!-- End of Current Weight Input -->
+
+          <!-- Current Date Input -->
+          <div>
+            <label
+              for="currentDate"
+              class="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Current Date
+            </label>
+            <input
+              type="date"
+              formControlName="date"
+              id="currentDate"
+              class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#dda15e] focus:border-transparent"
+            />
+
+            <div class="text-red-500 text-sm mt-1">
+              {{ getErrorMessage("date") }}
+            </div>
+          </div>
+          <!-- End of Current Date Input -->
+        </div>
+      </div>
+      <!-- End of Weight input card -->
+
+      <!-- Submit button -->
+      <div class="flex justify-end space-x-4">
+        <button
+          type="submit"
+          [disabled]="weightForm.invalid || isSubmitting"
+          class="px-6 py-2 bg-gradient-to-r from-[#dda15e] to-[#bc6c25] text-white rounded-lg font-semibold hover:cursor-pointer hover:scale-105 hover:from-[#bc6c25] hover:to-[#dda15e] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200"
+        >
+          @if (!isSubmitting) {
+          <span>Log Workout</span>
+
+          } @else {
+          <span class="flex items-center">
+            <svg
+              class="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                class="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                stroke-width="4"
+              ></circle>
+              <path
+                class="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+              ></path>
+            </svg>
+            Logging...
+          </span>
+
+          }
+        </button>
+      </div>
+      <!-- End of Submit button -->
+    </form>
+  </div>
+  <!-- End of Grid container -->
+</main>
