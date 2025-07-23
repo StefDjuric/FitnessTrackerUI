@@ -292,7 +292,11 @@
           <!-- End of Water Habit Card  -->
 
           <!-- Weight  Card  -->
-          <div class="habit-card p-4 bg-gray-50 rounded-lg">
+          <div
+            class="habit-card p-4 bg-gray-50 rounded-lg hover:cursor-pointer"
+            [routerLink]="['/log-weight']"
+            routerLinkActive="router-link-active"
+          >
             <div class="flex items-center justify-between mb-2">
               <div class="flex items-center space-x-3">
                 <div

@@ -1,4 +1,11 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -7,6 +14,9 @@ import {
 } from '@angular/forms';
 import { WeightEntry } from '../../../models/WeightEntry';
 import { Chart, registerables } from 'chart.js';
+import { WeightEntryService } from '../../services/weight-entry-service';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 Chart.register(...registerables);
 
@@ -16,11 +26,18 @@ Chart.register(...registerables);
   templateUrl: './weight-progress.html',
   styleUrl: './weight-progress.css',
 })
-export class WeightProgress implements AfterViewInit {
+export class WeightProgress implements OnInit {
   @ViewChild('progressChart') progressChart!: ElementRef<HTMLCanvasElement>;
   private chart?: Chart;
   weightForm: FormGroup = new FormGroup({});
   isSubmitting: boolean = false;
+  private weightEntryService = inject(WeightEntryService);
+  private toastrService = inject(ToastrService);
+  private router = inject(Router);
+  weightEntries: WeightEntry[] = [];
+  inPastDaysLimit = 30;
+  private chartWeightData: number[] = [];
+  private chartDateData: Date[] = [];
 
   constructor(private fb: FormBuilder) {
     this.weightForm = this.fb.group({
@@ -29,8 +46,8 @@ export class WeightProgress implements AfterViewInit {
     });
   }
 
-  ngAfterViewInit(): void {
-    this.initChart();
+  ngOnInit(): void {
+    this.getWeightEntriesForUser(this.inPastDaysLimit);
   }
 
   onSubmit() {
@@ -41,7 +58,7 @@ export class WeightProgress implements AfterViewInit {
       weight: this.weightForm.value.weight,
     };
 
-    // TODO: Add weight entry
+    this.addWeightEntry(weightData);
 
     this.isSubmitting = false;
   }
@@ -90,14 +107,16 @@ export class WeightProgress implements AfterViewInit {
     this.progressChart.nativeElement.width = 400;
     this.progressChart.nativeElement.height = 300;
 
+    this.prepareChartData();
+
     this.chart = new Chart(ctx, {
       type: 'line',
       data: {
-        labels: [1, 2, 3],
+        labels: this.chartDateData,
         datasets: [
           {
             label: 'Weight (kg)',
-            data: [80, 81, 85, 72],
+            data: this.chartWeightData,
             borderColor: '#dda15e',
             backgroundColor: 'rgba(214, 39, 40, 0.1)',
             tension: 0.4,
@@ -128,5 +147,41 @@ export class WeightProgress implements AfterViewInit {
         },
       },
     });
+  }
+
+  prepareChartData() {
+    this.chartWeightData = this.weightEntries.flatMap((entry) => entry.weight);
+    this.chartDateData = this.weightEntries.flatMap((entry) => entry.date);
+  }
+
+  addWeightEntry(model: WeightEntry) {
+    this.weightEntryService.addWeightEntry(model).subscribe({
+      next: (_) => {
+        this.toastrService.success('Successfully added weight entry.');
+        this.getWeightEntriesForUser(this.inPastDaysLimit);
+      },
+      error: (err) => {
+        this.toastrService.error('Could not add weight entry.');
+        console.error(err);
+      },
+    });
+  }
+
+  getWeightEntriesForUser(inPastDaysLimit: number) {
+    this.weightEntryService.getWeightEntriesForUser(inPastDaysLimit).subscribe({
+      next: (weightEntries) => {
+        this.weightEntries = weightEntries;
+        this.initChart();
+      },
+      error: (err) => {
+        this.toastrService.error('Could not fetch weight entries.');
+        console.error(err);
+      },
+    });
+  }
+
+  setInPastDaysLimit(inPastDaysLimit: number) {
+    this.inPastDaysLimit = inPastDaysLimit;
+    this.getWeightEntriesForUser(this.inPastDaysLimit);
   }
 }
