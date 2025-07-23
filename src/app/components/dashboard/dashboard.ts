@@ -20,6 +20,7 @@ import { ProgressService } from '../../services/progress-service';
 import { WeeklyProgress } from '../../../models/WeeklyProgress';
 import { ProgressChangeModal } from '../progress-change-modal/progress-change-modal';
 import { User } from '../../../models/User';
+import { WeightEntryService } from '../../services/weight-entry-service';
 
 Chart.register(...registerables);
 
@@ -38,6 +39,7 @@ export class Dashboard implements OnDestroy, OnInit {
   private chartRunningValues: Array<number> = [];
   private chartLiftingValues: Array<number> = [];
   private toastrService = inject(ToastrService);
+  weightEntryService = inject(WeightEntryService);
   goalService = inject(GoalService);
   accountService = inject(Account);
   workoutService = inject(WorkoutService);
@@ -62,6 +64,7 @@ export class Dashboard implements OnDestroy, OnInit {
     weekStartDate: new Date(Date.now()),
   };
   isModalOpen: boolean = false;
+  currentWeight: number | null | undefined = null;
 
   ngOnInit(): void {
     this.getUserWorkouts(this.userId, this.workoutLimit);
@@ -69,6 +72,7 @@ export class Dashboard implements OnDestroy, OnInit {
     this.getRunCount(this.userId);
     this.getLiftingCount(this.userId);
     this.getUserGoals(this.userId);
+    this.getLastWeightEntryForUser();
   }
 
   initializeChart() {
@@ -232,7 +236,6 @@ export class Dashboard implements OnDestroy, OnInit {
     this.workoutService.getAllWorkoutsForUser(userId, limit).subscribe({
       next: (workouts) => {
         this.userWorkouts = workouts;
-        console.log(this.userWorkouts);
 
         this.initializeChart();
 
@@ -425,6 +428,24 @@ export class Dashboard implements OnDestroy, OnInit {
           this.toastrService.error(
             'Failed to reset weekly progress on server.'
           );
+        },
+      });
+  }
+
+  getLastWeightEntryForUser() {
+    const inPastAmountOfDays = 30;
+    this.weightEntryService
+      .getWeightEntriesForUser(inPastAmountOfDays)
+      .subscribe({
+        next: (weightEntries) => {
+          this.currentWeight = weightEntries.at(-1)?.weight;
+          console.log(this.currentWeight);
+        },
+        error: (err) => {
+          this.toastrService.error(
+            'Could not fetch last weight entry for user.'
+          );
+          console.error(err);
         },
       });
   }

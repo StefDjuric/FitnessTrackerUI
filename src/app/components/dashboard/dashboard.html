@@ -283,10 +283,23 @@
               </div>
             </div>
             <div class="w-full bg-gray-200 rounded-full h-2">
+              @if (weeklyProgress.waterConsumed &&
+              currentUserGoals.waterGoalInLiters) {
+
               <div
                 class="bg-blue-500 h-2 rounded-full progress-bar"
-                style="width: 87%"
+                [style.width.%]="
+                  (weeklyProgress.waterConsumed /
+                    currentUserGoals.waterGoalInLiters) *
+                    100 >
+                  100
+                    ? 100
+                    : (weeklyProgress.waterConsumed /
+                        currentUserGoals.waterGoalInLiters) *
+                      100
+                "
               ></div>
+              }
             </div>
           </div>
           <!-- End of Water Habit Card  -->
@@ -304,21 +317,26 @@
                 >
                   ⏲️
                 </div>
-                <span class="font-semibold text-gray-900"
-                  >Weight Goal {{ currentUserGoals.weightGoal }}kg</span
-                >
+                <span class="font-semibold text-gray-900">Weight</span>
               </div>
               <div
                 class="bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-semibold"
               >
-                75kg
+                {{ currentWeight }}kg/{{ currentUserGoals.weightGoal }}kg
               </div>
             </div>
             <div class="w-full bg-gray-200 rounded-full h-2">
+              @if(currentUserGoals.weightGoal && currentWeight){
+
               <div
                 class="bg-purple-500 h-2 rounded-full progress-bar"
-                style="width: 94%"
+                [style.width.%]="
+                  (currentWeight / currentUserGoals.weightGoal) * 100 > 100
+                    ? 100
+                    : (currentWeight / currentUserGoals.weightGoal) * 100
+                "
               ></div>
+              }
             </div>
           </div>
           <!-- End of Weight Card  -->
@@ -347,10 +365,22 @@
               </div>
             </div>
             <div class="w-full bg-gray-200 rounded-full h-2">
+              @if(weeklyProgress.mealsEaten && currentUserGoals.mealsEatenGoal){
+
               <div
                 class="bg-orange-500 h-2 rounded-full progress-bar"
-                style="width: 80%"
+                [style.width.%]="
+                  (weeklyProgress.mealsEaten /
+                    currentUserGoals.mealsEatenGoal) *
+                    100 >
+                  100
+                    ? 100
+                    : (weeklyProgress.mealsEaten /
+                        currentUserGoals.mealsEatenGoal) *
+                      100
+                "
               ></div>
+              }
             </div>
           </div>
           <!-- End of Meals Habit Card  -->
