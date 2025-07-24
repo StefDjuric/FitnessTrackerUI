@@ -1,0 +1,171 @@
+<main class="mx-auto max-w-[1440px] px-6 lg:px-15 3xl:px-0 py-8">
+  <!-- Header -->
+  <div class="mb-8">
+    <h2 class="text-3xl font-bold text-gray-900 mb-2">
+      Here is your workouts overview
+    </h2>
+  </div>
+  <!-- End of Header -->
+
+  <!-- Grid -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Left Column - Workouts Done -->
+    <div class="lg:col-span-2 space-y-8">
+      <!-- Workouts Card -->
+      <div class="workout-log-card p-6 rounded-2xl shadow-lg card-hover">
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="text-2xl font-bold text-gray-900">
+            List of Workouts Done
+          </h3>
+        </div>
+        <!-- Individual workout container -->
+        <div class="space-y-4 overflow-y-auto h-screen">
+          @if (userWorkouts.length > 0) { @for (workout of userWorkouts; track
+          $index) { @if(workout && workout.weightliftingLog){
+          <!-- Gym Log -->
+          <div
+            [routerLink]="[`/workouts/workout-info/${workout.id}`]"
+            routerLinkActive="router-link-active"
+            class="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:cursor-pointer card-hover"
+          >
+            <div class="flex items-center space-x-4">
+              <div
+                class="w-12 h-12 bg-gradient-to-r from-[#dda15e] to-[#bc6c25] rounded-full flex items-center justify-center text-white font-bold"
+              >
+                💪
+              </div>
+              <div>
+                <p class="font-semibold text-gray-900">{{ workout.type }}</p>
+                <p class="text-sm text-gray-600">
+                  {{ workout.workoutDate | date : "longDate" }} •
+                  {{ workout.durationMin }} min
+                </p>
+              </div>
+            </div>
+            <div class="text-right">
+              <p class="font-semibold text-gray-900">
+                @if (workout.calories) {
+                {{ workout.calories }} calories }
+              </p>
+            </div>
+          </div>
+          <!-- End of Gym Log -->
+          } @else if(workout && workout.runLog){
+          <!-- Run Log -->
+          <div
+            [routerLink]="[`/workouts/workout-info/${workout.id}`]"
+            routerLinkActive="router-link-active"
+            class="flex items-center justify-between p-4 bg-gray-50 rounded-lg hover:cursor-pointer card-hover"
+          >
+            <div class="flex items-center space-x-4">
+              <div
+                class="w-12 h-12 bg-gradient-to-r from-[#606c38] to-[#dda15e] rounded-full flex items-center justify-center text-white font-bold"
+              >
+                🏃
+              </div>
+              <div>
+                <p class="font-semibold text-gray-900">{{ workout.type }}</p>
+                <p class="text-sm text-gray-600">
+                  {{ workout.workoutDate | date : "longDate" }} •
+                  {{ workout.durationMin }} min
+                </p>
+              </div>
+            </div>
+            <div class="text-right">
+              <p class="font-semibold text-gray-900">
+                {{ workout.runLog.distanceInKms }} km
+              </p>
+              <p class="text-sm text-gray-900">
+                @if (workout.calories) {
+                {{ workout.calories }} calories }
+              </p>
+            </div>
+          </div>
+          <!-- End of Run Log -->
+
+          } } }@else {
+          <div
+            class="flex items-center justify-center p-4 bg-gray-50 rounded-lg"
+          >
+            <p class="font-semibold">No workouts found!</p>
+          </div>
+          }
+        </div>
+        <!-- End of Individual workout container -->
+      </div>
+      <!-- End of Workouts Card -->
+    </div>
+    <!-- End of Left Column - Workouts Done -->
+
+    <!-- Right Column - Workout Programs -->
+    <div class="space-y-8">
+      <!-- Card -->
+      <div class="bg-white p-6 rounded-2xl shadow-lg card-hover">
+        <h3 class="text-2xl font-bold text-center text-gray-900 mb-6">
+          Workout Programs
+        </h3>
+        <div class="space-y-4">
+          <!-- Program 1 -->
+          <div
+            class="program-card flex items-center justify-between p-4 bg-gray-50 rounded-lg"
+          >
+            <div class="flex items-center space-x-4">
+              <div>
+                <h4 class="font-semibold text-gray-900">Beginner Full Body</h4>
+                <div class="flex flex-wrap gap-1.5 mt-1">
+                  <span class="text-sm">8 weeks</span>
+                  <span class="text-sm">3 days/week</span>
+                  <span class="badge bg-green-100 text-green-800"
+                    >Beginner</span
+                  >
+                </div>
+              </div>
+            </div>
+            <app-button text="Start" type="button" styling="primary">
+            </app-button>
+          </div>
+
+          <!-- Program 2 -->
+          <div
+            class="program-card flex items-center justify-between p-4 bg-gray-50 rounded-lg"
+          >
+            <div class="flex items-center space-x-4">
+              <div>
+                <h4 class="font-semibold text-gray-900">Upper/Lower Split</h4>
+                <div class="flex flex-wrap gap-1.5 mt-1">
+                  <span class="text-sm">12 weeks</span>
+                  <span class="text-sm">4 days/week</span>
+                  <span class="badge bg-yellow-100 text-yellow-800"
+                    >Intermediate</span
+                  >
+                </div>
+              </div>
+            </div>
+            <app-button text="Start" type="button" styling="secondary">
+            </app-button>
+          </div>
+
+          <!-- Program 3 -->
+          <div
+            class="program-card flex items-center justify-between p-4 bg-gray-50 rounded-lg"
+          >
+            <div class="flex items-center space-x-4">
+              <div>
+                <h4 class="font-semibold text-gray-900">HIIT Conditioning</h4>
+                <div class="flex flex-wrap gap-1.5 mt-1">
+                  <span class="text-sm">6 weeks</span>
+                  <span class="text-sm">4 days/week</span>
+                  <span class="badge bg-red-100 text-red-800">Advanced</span>
+                </div>
+              </div>
+            </div>
+            <app-button text="Start" type="button" styling="tertiary">
+            </app-button>
+          </div>
+        </div>
+      </div>
+      <!-- End of Card -->
+    </div>
+  </div>
+  <!-- End of Grid -->
+</main>

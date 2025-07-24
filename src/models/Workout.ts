@@ -1,6 +1,7 @@
 import { Exercise } from './Exercise';
 
 export interface Workout {
+  id?: number;
   type: string;
   durationMin: number;
   workoutDate: string;

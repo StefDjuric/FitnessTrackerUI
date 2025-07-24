@@ -12,6 +12,8 @@ import { WeightliftingLogForm } from './components/weightlifting-log-form/weight
 import { LogRun } from './components/log-run/log-run';
 import { SetHabitGoals } from './components/set-habit-goals/set-habit-goals';
 import { WeightProgress } from './components/weight-progress/weight-progress';
+import { WorkoutsPage } from './components/workouts-page/workouts-page';
+import { WorkoutInfo } from './components/workout-info/workout-info';
 
 export const routes: Routes = [
   // Private routes
@@ -29,6 +31,8 @@ export const routes: Routes = [
       { path: 'log-run', component: LogRun },
       { path: 'set-habits', component: SetHabitGoals },
       { path: 'log-weight', component: WeightProgress },
+      { path: 'workouts', component: WorkoutsPage },
+      { path: 'workouts/workout-info/:workoutId', component: WorkoutInfo },
     ],
   },
   // Public routes

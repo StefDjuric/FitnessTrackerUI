@@ -1,0 +1,53 @@
+.card-hover {
+  transition: all 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.program-card {
+  transition: all 0.2s ease;
+}
+
+.program-card:hover {
+  transform: translateY(-3px);
+  background-color: #f8fafc;
+}
+
+.badge {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: 9999px;
+}
+
+.strength-gradient {
+  background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+}
+
+.cardio-gradient {
+  background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 100%);
+}
+
+.hiit-gradient {
+  background: linear-gradient(135deg, #f97316 0%, #ef4444 100%);
+}
+
+.hybrid-gradient {
+  background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+}
+
+.beginner-gradient {
+  background: linear-gradient(135deg, #10b981 0%, #22c55e 100%);
+}
+
+.icon-circle {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+}

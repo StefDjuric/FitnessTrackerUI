@@ -109,11 +109,14 @@
       <div class="workout-log-card p-6 rounded-2xl shadow-lg card-hover">
         <div class="flex items-center justify-between mb-6">
           <h3 class="text-2xl font-bold text-gray-900">Recent Workouts</h3>
-          <button
-            class="btn-primary text-white px-4 py-2 rounded-lg font-semibold"
+          <app-button
+            text="View All"
+            styling="primary"
+            type="button"
+            [routerLink]="['/workouts']"
+            routerLinkActive="router-link-active"
           >
-            View All
-          </button>
+          </app-button>
         </div>
         <!-- Individual workout container -->
         <div class="space-y-4">
@@ -121,7 +124,9 @@
           $index) { @if(workout && workout.weightliftingLog){
           <!-- Gym Log -->
           <div
-            class="flex items-center justify-between p-4 bg-gray-50 rounded-lg"
+            [routerLink]="[`/workouts/workout-info/${workout.id}`]"
+            routerLinkActive="router-link-active"
+            class="flex items-center justify-between p-4 bg-gray-50 rounded-lg card-hover hover:cursor-pointer"
           >
             <div class="flex items-center space-x-4">
               <div
@@ -148,7 +153,9 @@
           } @else if(workout && workout.runLog){
           <!-- Run Log -->
           <div
-            class="flex items-center justify-between p-4 bg-gray-50 rounded-lg"
+            [routerLink]="[`/workouts/workout-info/${workout.id}`]"
+            routerLinkActive="router-link-active"
+            class="flex items-center justify-between p-4 bg-gray-50 rounded-lg card-hover hover:cursor-pointer"
           >
             <div class="flex items-center space-x-4">
               <div
