@@ -1,6 +1,6 @@
 export interface Exercise {
-  Name: string;
-  WeightInKgs: number;
-  Series: number;
-  Reps: number;
+  name: string;
+  weightInKgs: number;
+  series: number;
+  reps: number;
 }

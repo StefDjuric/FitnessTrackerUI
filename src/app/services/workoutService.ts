@@ -53,4 +53,8 @@ export class WorkoutService {
   getRunCountForUser(userId: number) {
     return this.http.get<number>(`${this.baseUrl}workouts/run-count/${userId}`);
   }
+
+  getWorkoutById(workoutId: number) {
+    return this.http.get<Workout>(`${this.baseUrl}workouts/${workoutId}`);
+  }
 }
