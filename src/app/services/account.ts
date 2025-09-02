@@ -6,6 +6,7 @@ import { map, Observable } from 'rxjs';
 import { RegisterDto } from '../../models/RegisterDto';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { ProfileForm, UpdateProfileRequest } from '../../models/Profile-form';
 
 @Injectable({
   providedIn: 'root',
@@ -74,6 +75,10 @@ export class Account {
     }
   }
 
+  editProfile(editPayload: ProfileForm) {
+    return this.http.patch(`${this.baseUrl}profile`, editPayload);
+  }
+
   getUserIdFromToken(): number | null {
     const user = this.currentUser();
     if (user && user.token) {
@@ -88,6 +93,15 @@ export class Account {
     if (user && user.token) {
       const decodedToken = this.decodeJwtToken(user.token);
       return decodedToken?.unique_name;
+    }
+    return null;
+  }
+
+  getEmailFromToken(): string | null {
+    const user = this.currentUser();
+    if (user && user.token) {
+      const decodedToken = this.decodeJwtToken(user.token);
+      return decodedToken?.email;
     }
     return null;
   }

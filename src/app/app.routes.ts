@@ -14,6 +14,7 @@ import { SetHabitGoals } from './components/set-habit-goals/set-habit-goals';
 import { WeightProgress } from './components/weight-progress/weight-progress';
 import { WorkoutsPage } from './components/workouts-page/workouts-page';
 import { WorkoutInfo } from './components/workout-info/workout-info';
+import { EditProfile } from './components/edit-profile/edit-profile';
 
 export const routes: Routes = [
   // Private routes
@@ -33,6 +34,7 @@ export const routes: Routes = [
       { path: 'log-weight', component: WeightProgress },
       { path: 'workouts', component: WorkoutsPage },
       { path: 'workouts/workout-info/:workoutId', component: WorkoutInfo },
+      { path: 'edit-profile', component: EditProfile },
     ],
   },
   // Public routes
